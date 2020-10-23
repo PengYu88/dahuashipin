@@ -1,6 +1,6 @@
 package com.dhsp.dhspservice.bean.base;
 
-public enum  ResultCode {
+public enum ResultCode {
 
     SUCCESS("2000", "Success"),
     FAILED("4001", "Failed"),
