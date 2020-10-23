@@ -18,4 +18,6 @@
 <bean id="clientService" class="cn.itcast.ssm.service.impl.clientServiceImpl"/>
 <!-- 订单管理的service -->
 <bean id="orderService" class="cn.itcast.ssm.service.impl.orderServiceImpl"/>
+<!-- 历史的service -->
+<bean id="HistoryService" class="cn.itcast.ssm.service.impl.HistoryServiceImpl"/>
 </beans>

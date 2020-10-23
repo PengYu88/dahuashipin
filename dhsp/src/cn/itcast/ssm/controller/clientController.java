@@ -104,12 +104,14 @@ public class clientController {
 			String clientName = request.getParameter("clientName");
 			String clientAddress = request.getParameter("clientAddress");
 			String clientTelephone = request.getParameter("clientTelephone");
+			String pickupAdress = request.getParameter("pickupAdress");
 			clientCustom clientCustom = new clientCustom();
 			clientCustom.setLogisticsArrival(logisticsArrival);
 			clientCustom.setDistrict(district);
 			clientCustom.setClientName(clientName);
 			clientCustom.setClientAddress(clientAddress);
 			clientCustom.setClientTelephone(clientTelephone);
+			clientCustom.setPickupAdress(pickupAdress);
 			clientService.insertClient(clientCustom);
 			JSONObject jsonObject = new JSONObject();
 			PrintWriter writer = null;
@@ -139,6 +141,7 @@ public class clientController {
 			String clientName = request.getParameter("clientName");
 			String clientAddress = request.getParameter("clientAddress");
 			String clientTelephone = request.getParameter("clientTelephone");
+			String pickupAdress = request.getParameter("pickupAdress");
 			clientCustom clientCustom = new clientCustom();
 			clientCustom.setClientId(clientId);
 			clientCustom.setLogisticsArrival(logisticsArrival);
@@ -146,6 +149,7 @@ public class clientController {
 			clientCustom.setClientName(clientName);
 			clientCustom.setClientAddress(clientAddress);
 			clientCustom.setClientTelephone(clientTelephone);
+			clientCustom.setPickupAdress(pickupAdress);
 			clientService.updateClient(clientCustom);
 			JSONObject jsonObject = new JSONObject();
 			PrintWriter writer = null;

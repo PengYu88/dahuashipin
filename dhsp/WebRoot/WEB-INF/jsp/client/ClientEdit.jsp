@@ -7,11 +7,17 @@ String flag = request.getAttribute("flag").toString();
 %>
 <form id="client-edit-form" class="form-horizontal" role="form"  method="post">
 	<input type="hidden" id="flag" value="<%=flag%>">
-		<div class="form-group">
+	<div class="form-group">
 	    <label for="goodsUnit" class="col-xs-4 control-label">物流到站</label>
 	    <div class="col-xs-5">
 			<input class="form-control" id="editLogisticsArrival" name="editLogisticsArrival" placeholder="物流到站" maxlength="20" value="${clientCustom.logisticsArrival}">
 			<input type="hidden" id="editClientId" value="${clientCustom.clientId}">
+	    </div>
+	</div>
+	<div class="form-group">
+	    <label for="pickupAdress" class="col-xs-4 control-label">提货地址</label>
+	    <div class="col-xs-5">
+			<input class="form-control" id="pickupAdress" name="pickupAdress" placeholder="提货地址" maxlength="120" value="${clientCustom.pickupAdress}">
 	    </div>
 	</div>
 	<div class="form-group">

@@ -8,6 +8,12 @@ String flag = request.getAttribute("flag").toString();
 <form id="goods-edit-form" class="form-horizontal" role="form" action="doAddSave.action" method="post">
 	<input type="hidden" id="flag" value="<%=flag%>">
 	<div class="form-group">
+	    <label for="editGoodsRemark" class="col-xs-4 control-label">库房码</label>
+	    <div class="col-xs-5">
+			<input class="form-control" id="editGoodsRemark" name="editGoodsRemark" placeholder="库房码" maxlength="30" value="${goodsCustom.goodsRemark}">
+	    </div>
+	</div>
+	<div class="form-group">
 	    <label for="editGoodsCode" class="col-xs-4 control-label">商品条码</label>
 	    <div class="col-xs-5">
 			<input class="form-control" id="editGoodsCode" name="editGoodsCode" placeholder="商品条码" maxlength="20" value="${goodsCustom.goodsCode}">
@@ -56,12 +62,6 @@ String flag = request.getAttribute("flag").toString();
 	    <label for="editGoodsPrice" class="col-xs-4 control-label">单价（元）</label>
 	    <div class="col-xs-5">
 			<input class="form-control" id="editGoodsPrice" name="editGoodsPrice" placeholder="单价" maxlength="10" value="${goodsCustom.price}">
-	    </div>
-	</div>
-	<div class="form-group">
-	    <label for="editGoodsRemark" class="col-xs-4 control-label">备注</label>
-	    <div class="col-xs-5">
-			<input class="form-control" id="editGoodsRemark" name="editGoodsRemark" placeholder="备注" maxlength="30" value="${goodsCustom.goodsRemark}">
 	    </div>
 	</div>
 </form>

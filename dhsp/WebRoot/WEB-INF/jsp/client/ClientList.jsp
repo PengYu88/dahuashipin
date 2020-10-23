@@ -47,6 +47,7 @@ String sum = request.getAttribute("sum").toString();
 			    <th>物流到站</th>
 			    <th>所属地区</th>
 			    <th>收货人地址</th>
+			    <th>提货地址</th>
 			    <th>联系电话</th>
 			    <th>操作</th>
 			  </tr>

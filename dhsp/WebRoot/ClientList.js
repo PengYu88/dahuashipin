@@ -53,6 +53,7 @@ tsc.ClientList = {
 		outHtml=outHtml+"<td>"+list[i].logisticsArrival+"</td>";
 		outHtml=outHtml+"<td>"+list[i].district+"</td>";
 		outHtml=outHtml+"<td>"+list[i].clientAddress+"</td>";
+		outHtml=outHtml+"<td>"+list[i].pickupAdress+"</td>";
 		outHtml=outHtml+"<td>"+list[i].clientTelephone+"</td>";
 		outHtml=outHtml+"<td><a id='editBtn' onclick='tsc.ClientList.doEdit("+list[i].clientId+")'>修改</a>&nbsp;"
 						+"<a id='editBtn' onclick='tsc.ClientList.doDelete("+list[i].clientId+")'>删除</a></td>";

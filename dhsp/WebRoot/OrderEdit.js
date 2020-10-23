@@ -86,6 +86,26 @@ tsc.OrderEdit = {
 		});
 	},
 	
+	doDeleteHistory: function(){
+		if(window.confirm('你确定要删除吗？')){
+			var clientInfo = $("#clientInfo").val();
+			var updateTime = $("#updateTime").val();
+			$.ajax({ 
+				url: "deleteHistory.action",
+				type: "post",
+				data: {
+					"clientInfo":clientInfo,
+					"updateTime":updateTime,
+					},
+				dataType:"json",
+				success: function() {
+					alert("删除成功！")
+				}
+			});
+         }else{
+        }
+	},
+	
 	// 修改
 	doUpdate: function(callBackFunc){
 		var orderId = $("#editOrderId").val();

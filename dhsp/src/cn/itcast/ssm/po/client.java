@@ -15,6 +15,8 @@ public class client {
 	private String logisticsArrival;
 	
 	private String district;
+	
+	private String pickupAdress;
 
 	public String getClientId() {
 		return clientId;
@@ -71,5 +73,15 @@ public class client {
 	public void setDistrict(String district) {
 		this.district = district;
 	}
+
+	public String getPickupAdress() {
+		return pickupAdress;
+	}
+
+	public void setPickupAdress(String pickupAdress) {
+		this.pickupAdress = pickupAdress;
+	}
+	
+	
 	
 }

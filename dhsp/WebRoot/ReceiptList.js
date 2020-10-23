@@ -22,6 +22,9 @@
 		// 插入按钮初始化绑定事件
 		$("#addBtn").on("click", tsc.ReceiptList.doAdd);
 		
+		// 历史按钮
+		$("#historyBtn").on("click", tsc.ReceiptList.queryHistory);
+		
 		// 初始化表单验证
 		tsc.ReceiptList.validate();
 		
@@ -161,6 +164,11 @@
 		});
 	},
 	
+	
+	choosePayMethod: function(method){
+		$("#payMethod").text(method);
+	},
+	
 	//商品信息查询
 	doGoodsQueryForName: function(){ 
 		var goodsName = $("#goodsName").val()
@@ -226,6 +234,7 @@
 				$("#clientTelephone").val(data.itemsList[0].clientTelephone);
 				$("#logisticsArrival").val(data.itemsList[0].logisticsArrival);
 				$("#district").val(data.itemsList[0].district);
+				$("#pickupAdress").val(data.itemsList[0].pickupAdress);
 			}
 		});
 	},
@@ -289,6 +298,7 @@
 		$("#consignee").text($("#clientName").val());
 		$("#telephone").text($("#clientTelephone").val());
 		$("#adress").text($("#clientAddress").val());
+		$("#pickup").text($("#pickupAdress").val());
 		var goodsCode = $("#goodsCode").val();
 		var goodsName = $("#goodsName").val();
 		var goodsUnit = $("#goodsUnit").val();
@@ -299,11 +309,11 @@
 		var remark = $("#remark").val();
 		$("#sum").val(tsc.ReceiptList.fmoney(goodsPrice*amount,2));
 		var sum = $("#sum").val();
-		$("#orderTable tbody").append('<tr class="toAddClass" style="border:solid 1px black;text-align: center;"><td>'+goodsCode+'</td><td>'+goodsName+'</td><td>'+goodsSpec+'</td><td>'+goodsUnit+'</td><td>'+amount+'</td><td>'+goodsPrice+'</td><td class="sum">'+sum+'</td><td>'+remark+'</td></tr>');
+		$("#orderTable tbody").append('<tr class="toAddClass" style="border:solid 1px black;text-align: center;"><td>'+remark+'</td><td>'+goodsCode+'</td><td>'+goodsName+'</td><td>'+goodsSpec+'</td><td>'+goodsUnit+'</td><td>'+amount+'</td><td>'+goodsPrice+'</td><td class="sum">'+sum+'</td></tr>');
 		$(".toAddClass").on("dblclick", tsc.ReceiptList.doDelete);
 		var total = 0 
 		$('#orderTable tr').each(function(){ 
-			$(this).find('td:eq(6)').each(function(){ 
+			$(this).find('td:eq(7)').each(function(){ 
 				total += parseFloat($(this).text().replace(/,/g, "")); 
 			}); 
 		});
@@ -311,7 +321,7 @@
 		
 		var amountTotal = 0
 		$('#orderTable tr').each(function(){ 
-			$(this).find('td:eq(4)').each(function(){ 
+			$(this).find('td:eq(5)').each(function(){ 
 				amountTotal += parseInt($(this).text().replace(/,/g, "")); 
 			}); 
 		});
@@ -334,6 +344,7 @@
 	doInsert: function(){
 		var orderNo = $("#number").text();
 		var orderClient = $("#name").text();
+		var consignee = $("#consignee").text();
 		var ordreSum = $("#total").text().replace(/,/g, "");
 		// 提交
 		$.ajax({ 
@@ -349,13 +360,48 @@
 			}
 		});
 	},
+	//生成订单信息传入后台
+	doInsertHistory: function(){
+		var orderNo = $("#number").text().replace(/,/g, "");
+		var orderClient = $("#consignee").text().replace(/,/g, "");
+		var count = 0;
+		var historyList = [];
+		$('#orderTable tr').each(function(){
+			count++;
+			if(count!=1){
+				var obj = {};
+				obj.clientInfo = $("#clientSearch").val();
+				obj.goodsRemark = $(this).find('td:eq(0)').text();
+				obj.goodsCode = $(this).find('td:eq(1)').text();
+				obj.goodsName = $(this).find('td:eq(2)').text();
+				obj.goodsSpec = $(this).find('td:eq(3)').text();
+				obj.goodsUnit = $(this).find('td:eq(4)').text();
+				obj.goodsQuantity = $(this).find('td:eq(5)').text().replace(/,/g, "");
+				obj.goodsPrice = $(this).find('td:eq(6)').text().replace(/,/g, "");
+				obj.goodsTotal = $(this).find('td:eq(7)').text().replace(/,/g, "");
+				
+				historyList[count]=obj;
+			}
+		});
+		
+		
+		$.ajax({ 
+			url: "doAddHistory.action",
+			type: "post",
+			data: {"historyJson":JSON.stringify(historyList)},
+			dataType:"json",
+			success: function() {
+			}
+		});
+		
+	},
 	
 	//删除
 	doDelete: function(){
 		$(this).remove();
 		var total = 0 
 		$('#orderTable tr').each(function() { 
-		$(this).find('td:eq(6)').each(function(){ 
+		$(this).find('td:eq(7)').each(function(){ 
 			total += parseFloat($(this).text().replace(/,/g, "")); 
 		}); 
 		});
@@ -363,7 +409,7 @@
 		var total2 = tsc.ReceiptList.fmoney(total,2).replace(/,/g, "");
 		var amountTotal = 0
 		$('#orderTable tr').each(function(){ 
-			$(this).find('td:eq(4)').each(function(){ 
+			$(this).find('td:eq(5)').each(function(){ 
 				amountTotal += parseInt($(this).text().replace(/,/g, "")); 
 			}); 
 		});
@@ -385,7 +431,8 @@
 		});
 		return maxId;
 	},
- 
+	
+	
 	// 金额格式化
 	fmoney:function (s, n){   
 	   n = n > 0 && n <= 20 ? n : 2;   
@@ -399,6 +446,46 @@
 	   }   
 	   return t.split("").reverse().join("") + "." + r;   
 	},
+	
+	// 查看历史页面
+	queryHistory: function(){
+		var clientSearch = $("#clientSearch").val();
+		$.ajax({
+			url: "viewHistory.action",
+			type: "post",
+			data: {"clientSearch":clientSearch},
+			success: function(data){
+				var dialog = bootbox.dialog({
+					size: "large",
+					title: $("#clientSearch").val(),
+					message: data,
+					buttons:{
+						cancel:{
+							label: SYS_MSG.BTN_CLOSE,
+						    className: "btn-default",
+						}
+					}
+				});
+			}
+		});
+	},
+	
+	// 查看历史页面
+	deleteAll: function(){
+		if(window.confirm('你确定要清空吗？')){
+			$.ajax({
+				url: "deleteHistory.action",
+				type: "post",
+				success: function(){
+					alert("清空成功！")
+				}
+			});
+         }else{
+        }
+		// 提交请求
+	},
+	
+	
 	
 	// 数字转汉字
 	fmoney2:function (money)   

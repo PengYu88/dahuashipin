@@ -59,6 +59,7 @@ tsc.ClientEdit = {
 		var clientName = $("#editClientName").val();
 		var clientAddress = $("#editClientAddress").val();
 		var clientTelephone = $("#editClientTelephone").val();
+		var pickupAdress = $("#pickupAdress").val();
 		// 表单验证
 		if(!$("#client-edit-form").valid()){
 			return false;
@@ -72,7 +73,8 @@ tsc.ClientEdit = {
 				"district":district,
 				"clientName":clientName,
 				"clientAddress":clientAddress,
-				"clientTelephone":clientTelephone
+				"clientTelephone":clientTelephone,
+				"pickupAdress":pickupAdress
 				},
 			dataType:"json",
 			success: function(rs) {
@@ -90,6 +92,7 @@ tsc.ClientEdit = {
 		var clientName = $("#editClientName").val();
 		var clientAddress = $("#editClientAddress").val();
 		var clientTelephone = $("#editClientTelephone").val();
+		var pickupAdress = $("#pickupAdress").val();
 		// 表单验证
 		if(!$("#client-edit-form").valid()){
 			return false;
@@ -104,7 +107,8 @@ tsc.ClientEdit = {
 				"district":district,
 				"clientName":clientName,
 				"clientAddress":clientAddress,
-				"clientTelephone":clientTelephone
+				"clientTelephone":clientTelephone,
+				"pickupAdress":pickupAdress
 				},
 			dataType:"json",
 			success: function(rs) {

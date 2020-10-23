@@ -49,9 +49,9 @@
 	<insert id="insertClient" parameterType="cn.itcast.ssm.po.clientCustom" >
 		insert into
 		client 
-    	(logisticsArrival,district,clientName,clientAddress,clientTelephone,updateTime)
+    	(logisticsArrival,district,clientName,clientAddress,clientTelephone,pickupAdress,updateTime)
 		values 
-    	(#{logisticsArrival}, #{district}, #{clientName}, #{clientAddress}, #{clientTelephone},NOW()) 
+    	(#{logisticsArrival}, #{district}, #{clientName}, #{clientAddress}, #{clientTelephone},#{pickupAdress},NOW()) 
   	</insert>
   	
   	<!-- 修改客户信息 -->
@@ -62,6 +62,7 @@
 			district = #{district},
 			clientName = #{clientName},
 			clientAddress = #{clientAddress},
+			pickupAdress = #{pickupAdress},
 			clientTelephone = #{clientTelephone},
 			updateTime = NOW()
     	where client.clientId = '${clientId}'
