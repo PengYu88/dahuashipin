@@ -2,8 +2,8 @@ package com.dhsp.dhspservice.controller;
 
 import com.dhsp.dhspservice.bean.base.BaseResult;
 import com.dhsp.dhspservice.bean.base.BaseResultUtil;
-import com.dhsp.dhspservice.bean.entity.MenuInfo;
-import com.dhsp.dhspservice.service.iservices.IMenuService;
+import com.dhsp.dhspservice.bean.entity.Goods;
+import com.dhsp.dhspservice.service.iservices.IGoodsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -20,17 +20,16 @@ import java.util.List;
 public class TestController {
 
     @Resource
-    private IMenuService iMenuService;
+    private IGoodsService iGoodService;
 
     private static final Logger logger = LoggerFactory.getLogger("oneca1");
 
     @GetMapping("/testcliapp")
     @ResponseStatus(HttpStatus.OK)
-    public BaseResult<String> testcliapp(){
+    public BaseResult<List<Goods>> testcliapp(){
         try {
-            String shellResult = "123";
-            List<String> l = iMenuService.getMenuType();
-            return BaseResultUtil.genSuccessResult(shellResult);
+            List<Goods> l = iGoodService.getGoods();
+            return BaseResultUtil.genSuccessResult(l);
         }catch (Exception ex){
             ex.printStackTrace();
             logger.error("getHostname Exception: ", ex);

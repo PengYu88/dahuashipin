@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dhsp.dhspservice.mapper.GoodsMapper" >
+    <select id="getGoods" resultType="com.dhsp.dhspservice.bean.entity.Goods">
+        SELECT goods_id AS goodsId, goods_name AS goodsName, goods_spec AS goodsSpec,goods_price AS goodsPrice, goods_factory AS goodsFactory, goods_unit AS goodsUnit, goods_remark AS goodsRemark, create_time AS createTime, update_time AS updateTime FROM dhsp_goods
+    </select>
+</mapper>
