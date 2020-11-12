@@ -1,10 +1,11 @@
 package com.dhsp.dhspservice.bean.base;
 
+import javax.annotation.Resource;
+
 public class BaseResult<T> {
     private String returnCode;
     private String returnMessage;
     private T data;
-
     private BaseResult(){}
 
     public static <T> BaseResult<T> newInstance(){
